@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forecasting Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Training Section</h1>
+    <p>Hello {{ user_name }},</p>
+    <p>
+        Thanks for choosing {{ company }}'s forecasting platform.
+    </p>
+    <p>Here are the available utilities of our service:</p>
+    <div class="list-group">
+        {% for utility in util_list %}
+        <button id="{{ utility }}" type="button" class="list-group-item list-group-item-action">{{ utility }}</button>
+        {% endfor %}
+    </div>
+    {% if ordered_warranty %}
+    <p>Your warranty information will be included in the packaging.</p>
+    {% else %}
+    <p>
+        You didn't order a warranty, so you're on your own when the products inevitably stop working.
+    </p>
+    {% endif %}
+    <p>Enjoy your journey to {{ company }}.</p>
+</div>
+
+</body>
+<script>
+    var x = document.querySelectorAll("p");
+
+    document.querySelector('#train').onclick = function(e) {
+        x[0].style.backgroundColor = "red";
+    };
+
+</script>
+</html>

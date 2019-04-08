@@ -10,7 +10,7 @@
 <body>
 
 <div class="container">
-    <h1>Training Section</h1>
+    <h1>Forecasting Platform</h1>
     <p>Hello {{ user_name }},</p>
     <p>
         Thanks for choosing {{ company }}'s forecasting platform.
@@ -36,7 +36,15 @@
     var x = document.querySelectorAll("p");
 
     document.querySelector('#train').onclick = function(e) {
-        x[0].style.backgroundColor = "red";
+        location.href = "train";
+    };
+
+    document.querySelector('#evaluate').onclick = function(e) {
+        location.href = "evaluate";
+    };
+
+    document.querySelector('#test').onclick = function(e) {
+        location.href = "test";
     };
 
 </script>

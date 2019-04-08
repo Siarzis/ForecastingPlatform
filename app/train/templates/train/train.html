@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Training Section</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-$END$
+<div class="container">
+    <div class="progress">
+    <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="70"
+         aria-valuemin="0" aria-valuemax="100" style="width:70%">
+        <span class="sr-only">70% Complete</span>
+    </div>
+    </div>
+</div>
 </body>
+
+<script>
+    function updateProgress(progressBarElement, progress) {
+        progressBarElement.style.width = progress.percent + "%";
+        progressBarMessageElement.innerHTML = progress.current + ' of ' + progress.total + ' processed.';
+    }
+
+    var bar = document.getElementById("progress-bar");
+
+    for (var i = 0; i < 11; i++) {
+        setTimeout(updateProgress, 500 * i, bar, {
+            percent: 10 * i,
+            current: 10 * i,
+            total: 100
+        })
+    }
+
+</script>
+
 </html>

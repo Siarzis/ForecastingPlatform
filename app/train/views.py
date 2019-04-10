@@ -4,6 +4,7 @@ from celery.result import AsyncResult
 
 from train.tasks import train_task
 
+from time import sleep
 import json
 from time import sleep
 
@@ -25,15 +26,22 @@ def index(request):
 def train(request):
 
     job = train_task.delay()
-    result = AsyncResult(job.id)
-    sleep(5)
+    return render(request, 'train/train.html', context={'task_id': job.task_id})
+
+    #result = AsyncResult(job.id)
+    #response_data = {
+    #    'state': result.state,
+    #    'details': result.info,
+    #}
+
+    # return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+def task_state(request, task_id):
+
+    result = AsyncResult(task_id)
     response_data = {
         'state': result.state,
         'details': result.info,
     }
-
     return HttpResponse(json.dumps(response_data), content_type='application/json')
-
-    # context = {}
-
-    # return render(request, 'train/train.html', context)

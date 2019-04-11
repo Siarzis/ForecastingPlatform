@@ -4,9 +4,7 @@ from celery.result import AsyncResult
 
 from train.tasks import train_task
 
-from time import sleep
 import json
-from time import sleep
 
 
 # Create your views here.
@@ -28,20 +26,14 @@ def train(request):
     job = train_task.delay()
     return render(request, 'train/train.html', context={'task_id': job.task_id})
 
-    #result = AsyncResult(job.id)
-    #response_data = {
-    #    'state': result.state,
-    #    'details': result.info,
-    #}
 
-    # return HttpResponse(json.dumps(response_data), content_type='application/json')
-
-
+# this view can be updated to handle errors
+# check https://www.codementor.io/uditagarwal/asynchronous-tasks-using-celery-with-django-du1087f5k
 def task_state(request, task_id):
 
     result = AsyncResult(task_id)
     response_data = {
         'state': result.state,
-        'details': result.info,
+        'details': result.info
     }
     return HttpResponse(json.dumps(response_data), content_type='application/json')

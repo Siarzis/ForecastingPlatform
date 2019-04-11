@@ -19,9 +19,12 @@ def train_task():
     # mdl_train = model_train(path_data_train, path_nwp, nominal_p, horizon, start_date_train, end_date_train)
     # mdl_train.train(h=50, epochs=300)
 
-    for i in range(10):
-        sleep(1)
+    for i in range(11):
 
+        print(i)
         process_percent = int(100 * float(i) / float(10))
         current_task.update_state(state='PROGRESS',
                                   meta={'process_percent': process_percent})
+        sleep(1)
+
+    return

@@ -22,7 +22,7 @@
 <script>
     function updateProgress(progressBarElement, progress) {
         progressBarElement.style.width = progress.percent + "%";
-        progressBarMessageElement.innerHTML = progress.current + ' of ' + progress.total + ' processed.';
+        //progressBarMessageElement.innerHTML = progress.current + ' of ' + progress.total + ' processed.';
     }
 
     var bar = document.getElementById("progress-bar");
@@ -31,12 +31,22 @@
 
         var progressUrl = '{% url "train_state" task_id %}';
         $.getJSON(progressUrl, function(data) {
-            updateProgress(bar, {'percent': data.details.process_percent});
+            try {
+                console.log(data.details.process_percent);
+                updateProgress(bar, {'percent': data.details.process_percent});
+            }
+            catch(err) {
+                if ((data.state).localeCompare("SUCCESS") == 0) {
+                    updateProgress(bar, {'percent': 100});
+                    $('#progress-bar').css("background-color", "chartreuse");
+                    //$('#progress-bar').removeClass("progress-bar").addClass("progress-bar bg-success");
+                }
+            }
         });
 
     }
 
-    var interval = setInterval(update_traindata, 500);
+    var interval = setInterval(update_traindata, 1000);
 
 </script>
 

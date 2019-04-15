@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
 <div class="container">
+    <canvas id="myChart"></canvas>
     <div class="progress">
     <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="70"
          aria-valuemin="0" aria-valuemax="100" style="width:0%">
@@ -20,6 +22,27 @@
 </body>
 
 <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                fill: false,
+                data: [null, null, null, null, null, null, null]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+
     function updateProgress(progressBarElement, progress) {
         progressBarElement.style.width = progress.percent + "%";
         //progressBarMessageElement.innerHTML = progress.current + ' of ' + progress.total + ' processed.';
@@ -27,12 +50,19 @@
 
     var bar = document.getElementById("progress-bar");
 
+    async function updateChart() {
+        for (i = 0; i < 8; i++) {
+            console.log(i);
+            await sleep(1000);
+        }
+    }
+
     function update_traindata() {
 
         var progressUrl = '{% url "train_state" task_id %}';
         $.getJSON(progressUrl, function(data) {
             try {
-                console.log(data.details.process_percent);
+                //console.log(data.details.process_percent);
                 updateProgress(bar, {'percent': data.details.process_percent});
             }
             catch(err) {
@@ -46,6 +76,7 @@
 
     }
 
+    var timeout = setTimeout(updateChart, 500);
     var interval = setInterval(update_traindata, 1000);
 
 </script>

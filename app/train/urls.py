@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('train/', views.train, name='train'),
+    path('predict/', views.predict, name='predict'),
     path('train/<task_id>', views.task_state, name='train_state')
 ]

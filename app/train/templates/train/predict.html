@@ -26,21 +26,15 @@
             labels: Array.apply(null, Array(48)).map(function (x, i) { return i; }),
             datasets: [{
                 label: 'Power Predictions',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgb(40, 155, 255)',
+                borderColor: 'rgb(40, 155, 255)',
                 fill: false,
                 data: {{ predictions }}
             }]
         },
 
         // Configuration options go here
-        options: {
-            scales: {
-                yAxes : [{
-                    ticks : { max : 100, min : 0 }
-                }]
-            }
-        }
+        options: { }
     });
 
 </script>
